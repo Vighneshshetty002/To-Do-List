@@ -48,26 +48,26 @@ st.subheader("Completed Tasks")
 st.write(df)
 
 # Line Chart
-st.subheader("Line Chart")
-fig_line = px.line(df, x='Task', y='Due Date', title='Due Dates for Tasks')
+st.subheader("Task Deadline Progress")
+fig_line = px.line(df, x='Task', y='Due Date', title='Task Deadline Progress Over Time')
 st.plotly_chart(fig_line)
 
 # Bar Chart
-st.subheader("Bar Chart")
-fig_bar = px.bar(df, x='Task', y='Due Date', title='Due Dates for Tasks')
+st.subheader("Priority Distribution")
+fig_bar = px.bar(df, x='Task', y='Due Date', title='Task Deadline Distribution Across Priorities')
 st.plotly_chart(fig_bar)
 
 # Histogram
-st.subheader("Histogram")
-fig_hist = px.histogram(df, x='Priority', title='Priority Distribution')
+st.subheader("Priority Analysis")
+fig_hist = px.histogram(df, x='Priority', title='Priority Distribution Analysis')
 st.plotly_chart(fig_hist)
 
 # Scatter Plot
-st.subheader("Scatter Plot")
-fig_scatter = px.scatter(df, x='Priority', y='Due Date', color='Priority', title='Scatter Plot')
+st.subheader("Task Priority vs. Deadline")
+fig_scatter = px.scatter(df, x='Priority', y='Due Date', color='Priority', title='Task Priority vs. Deadline')
 st.plotly_chart(fig_scatter)
 
 # Box Plot
-st.subheader("Box Plot")
-fig_box = px.box(df, x='Priority', y='Due Date', color='Priority', title='Box Plot')
+st.subheader("Task Priority Statistics")
+fig_box = px.box(df, x='Priority', y='Due Date', color='Priority', title='Task Priority Statistics')
 st.plotly_chart(fig_box)
