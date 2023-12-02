@@ -1,4 +1,4 @@
-# todo_app_with_visualizations.py
+# todo_app_with_dataset.py
 
 import streamlit as st
 import pandas as pd
@@ -6,30 +6,21 @@ import plotly.express as px
 
 # Sample dataset
 data = {
-    'Task': ['Complete Project', 'Buy Groceries', 'Exercise', 'Read Book'],
-    'Priority': ['High', 'Medium', 'Low', 'High'],
-    'Due Date': ['2023-12-15', '2023-12-10', '2023-12-20', '2023-12-18'],
-    'Description': ['Finish the Streamlit project', 'Get fruits and vegetables', 'Morning jog', 'Read "The Great Gatsby"']
+    'Task': ['Complete Project', 'Buy Groceries', 'Exercise', 'Read Book', 'Write Blog Post', 'Attend Meeting', 'Prepare Presentation'],
+    'Priority': ['High', 'Medium', 'Low', 'High', 'Medium', 'High', 'Medium'],
+    'Due Date': ['2023-12-15', '2023-12-10', '2023-12-20', '2023-12-18', '2023-12-22', '2023-12-14', '2023-12-17'],
+    'Description': ['Finish the Streamlit project', 'Get fruits and vegetables', 'Morning jog', 'Read "The Great Gatsby"',
+                    'Write about Streamlit usage', 'Discuss project updates', 'Prepare slides for the meeting']
 }
 
 df = pd.DataFrame(data)
 
 # Streamlit App
-st.title("To-Do List App with Dataset and Visualizations")
+st.title("To-Do List App with Dataset")
 
 # Display the to-do list
 st.subheader("To-Do List")
 st.write(df)
-
-# Visualizations
-st.subheader("Task Priority Distribution - Pie Chart")
-fig_pie = px.pie(df, names='Priority', title='Task Priority Distribution')
-st.plotly_chart(fig_pie)
-
-# Bar Graph for Task Priority Count
-st.subheader("Task Priority Count - Bar Graph")
-fig_bar = px.bar(df['Priority'].value_counts(), x=df['Priority'].value_counts().index, y=df['Priority'].value_counts().values, labels={'x': 'Priority', 'y': 'Count'}, title='Task Priority Count')
-st.plotly_chart(fig_bar)
 
 # Filter tasks based on priority
 selected_priority = st.sidebar.selectbox("Filter by Priority", df['Priority'].unique())
@@ -55,3 +46,28 @@ if st.button("Clear All Tasks"):
 # Display completed tasks
 st.subheader("Completed Tasks")
 st.write(df)
+
+# Line Chart
+st.subheader("Line Chart")
+fig_line = px.line(df, x='Task', y='Due Date', title='Due Dates for Tasks')
+st.plotly_chart(fig_line)
+
+# Bar Chart
+st.subheader("Bar Chart")
+fig_bar = px.bar(df, x='Task', y='Due Date', title='Due Dates for Tasks')
+st.plotly_chart(fig_bar)
+
+# Histogram
+st.subheader("Histogram")
+fig_hist = px.histogram(df, x='Priority', title='Priority Distribution')
+st.plotly_chart(fig_hist)
+
+# Scatter Plot
+st.subheader("Scatter Plot")
+fig_scatter = px.scatter(df, x='Priority', y='Due Date', color='Priority', title='Scatter Plot')
+st.plotly_chart(fig_scatter)
+
+# Box Plot
+st.subheader("Box Plot")
+fig_box = px.box(df, x='Priority', y='Due Date', color='Priority', title='Box Plot')
+st.plotly_chart(fig_box)
