@@ -57,7 +57,7 @@ if st.button("Add Task"):
 st.subheader("Filter and Search")
 
 # Filter tasks by completion status
-completed_filter = st.checkbox("Show Completed Tasks")
+completed_filter = st.checkbox("Show Completed Tasks", key="completed_filter")
 filtered_df = df[df['Completed']] if completed_filter else df[~df['Completed']]
 
 # Display filtered tasks
