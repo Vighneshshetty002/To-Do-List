@@ -59,9 +59,10 @@ st.subheader("Filter and Search")
 # Filter tasks by completion status
 completed_filter = st.checkbox("Show Completed Tasks")
 
-# Use a placeholder to dynamically update the checkbox state
+# Placeholder for dynamically updating the checkbox state
 filter_placeholder = st.empty()
 
+# Use a placeholder to store the state of the checkbox
 if completed_filter:
     filtered_df = df[df['Completed']]
 else:
@@ -72,7 +73,7 @@ st.subheader("Filtered To-Do List")
 st.write(filtered_df)
 
 # Update the placeholder to trigger reactivity
-filter_placeholder.checkbox("Update Filter")
+filter_placeholder.checkbox("Update Filter", key="update_filter")
 
 # Search tasks
 search_term = st.text_input("Search Tasks")
