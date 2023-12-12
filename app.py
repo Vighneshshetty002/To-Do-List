@@ -57,12 +57,22 @@ if st.button("Add Task"):
 st.subheader("Filter and Search")
 
 # Filter tasks by completion status
-completed_filter = st.checkbox("Show Completed Tasks", key="completed_filter")
-filtered_df = df[df['Completed']] if completed_filter else df[~df['Completed']]
+completed_filter = st.checkbox("Show Completed Tasks")
+
+# Use a placeholder to dynamically update the checkbox state
+filter_placeholder = st.empty()
+
+if completed_filter:
+    filtered_df = df[df['Completed']]
+else:
+    filtered_df = df[~df['Completed']]
 
 # Display filtered tasks
 st.subheader("Filtered To-Do List")
 st.write(filtered_df)
+
+# Update the placeholder to trigger reactivity
+filter_placeholder.checkbox("Update Filter")
 
 # Search tasks
 search_term = st.text_input("Search Tasks")
@@ -80,6 +90,53 @@ task_stats = pd.DataFrame({
 })
 
 st.write(task_stats)
+
+# Mark as Completed Section
+st.subheader("Mark as Completed")
+
+# Checkbox to mark tasks as completed
+completed_task = st.checkbox("Mark Task as Completed")
+
+if completed_task:
+    selected_task = st.selectbox("Select Task", df['Task'])
+    if st.button("Mark as Completed"):
+        df.loc[df['Task'] == selected_task, 'Completed'] = True
+        st.success(f"Task '{selected_task}' marked as completed!")
+
+# Priority Filter Section
+st.subheader("Filter by Priority")
+selected_priority = st.selectbox("Select Priority", ['All'] + df['Priority'].unique())
+if selected_priority != 'All':
+    priority_filtered_df = df[df['Priority'] == selected_priority]
+else:
+    priority_filtered_df = df.copy()
+
+# Display filtered tasks by priority
+st.subheader(f"To-Do List (Priority: {selected_priority})")
+st.write(priority_filtered_df)
+
+# Sort by Due Date Section
+st.subheader("Sort by Due Date")
+sort_by_due_date = st.checkbox("Sort by Due Date")
+
+if sort_by_due_date:
+    df.sort_values(by='Due Date', inplace=True)
+
+# Display sorted tasks
+st.subheader("Sorted To-Do List")
+st.write(df)
+
+# Button to clear all tasks
+if st.button("Clear All Tasks"):
+    confirmation = st.checkbox("Confirm Clear All Tasks")
+    if confirmation:
+        df = pd.DataFrame(columns=['Task', 'Priority', 'Due Date', 'Description', 'Completed'])
+        st.success("All tasks cleared!")
+
+# Display completed tasks
+st.subheader("Completed Tasks")
+completed_tasks_df = df[df['Completed']]
+st.write(completed_tasks_df)
 
 # Export to CSV
 if st.button("Export To-Do List to CSV"):
