@@ -58,7 +58,7 @@ st.subheader("Filter and Search")
 
 # Filter tasks by completion status
 completed_filter = st.checkbox("Show Completed Tasks")
-filtered_df = df[df['Completed'] == True] if completed_filter else df[df['Completed'] == False]
+filtered_df = df[df['Completed']] if completed_filter else df[~df['Completed']]
 
 # Display filtered tasks
 st.subheader("Filtered To-Do List")
