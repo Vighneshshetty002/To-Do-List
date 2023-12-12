@@ -38,11 +38,18 @@ if st.button("Add Task"):
         df = pd.concat([df, pd.DataFrame(new_task_data)], ignore_index=True)
         st.success("Task added successfully!")
 
-        # Display the success message or any other relevant information
+        # Display the updated to-do list
         st.subheader("Updated To-Do List")
-        st.write("Task added successfully!")
+        st.write(df)
+
+        # Display visualizations
+        st.sidebar.subheader("Task Priority Distribution - Pie Chart")
+        fig_pie = px.pie(df, names='Priority', title='Task Priority Distribution')
+        st.sidebar.plotly_chart(fig_pie)
+
+        st.sidebar.subheader("Task Priority Count - Bar Graph")
+        fig_bar = px.bar(df['Priority'].value_counts().sort_index(), x=df['Priority'].value_counts().sort_index().index, y=df['Priority'].value_counts().sort_index().values, labels={'x': 'Priority', 'y': 'Count'}, title='Task Priority Count')
+        st.sidebar.plotly_chart(fig_bar)
+
     else:
         st.warning("Task name and due date are required to add a new task.")
-
-# Visualizations
-# (Keep the visualization and other sections the same as before)
