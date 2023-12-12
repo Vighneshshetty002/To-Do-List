@@ -17,10 +17,6 @@ df = pd.DataFrame(data)
 st.title("🚀 To-Do List App with Dataset and Visualizations 📊")
 st.subheader("Your Personal Productivity Assistant")
 
-# Display the to-do list
-st.subheader("To-Do List")
-st.write(df)
-
 # New Task Input Section
 st.subheader("Add New Task")
 
@@ -42,9 +38,9 @@ if st.button("Add Task"):
         df = pd.concat([df, pd.DataFrame(new_task_data)], ignore_index=True)
         st.success("Task added successfully!")
 
-        # Display the updated to-do list
+        # Display the success message or any other relevant information
         st.subheader("Updated To-Do List")
-        st.write(df)
+        st.write("Task added successfully!")
     else:
         st.warning("Task name and due date are required to add a new task.")
 
